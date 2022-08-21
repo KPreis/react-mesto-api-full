@@ -41,7 +41,7 @@ module.exports.createUser = (req, res, next) => {
 module.exports.getUsers = (req, res, next) => {
   User.find({})
     .then((users) => {
-      res.send({ data: users });
+      res.send(users);
     })
     .catch(next);
 };
@@ -52,7 +52,7 @@ module.exports.getCurrentUser = (req, res, next) => {
       if (!user) {
         throw new NotFoundError(`Пользователь по указанному _id: ${req.user._id} не найден.`);
       }
-      res.send({ data: user });
+      res.send(user);
     })
     .catch(next);
 };
@@ -63,7 +63,7 @@ module.exports.getUserById = (req, res, next) => {
       if (!user) {
         throw new NotFoundError(`Пользователь по указанному _id: ${req.params.userId} не найден.`);
       }
-      res.send({ data: user });
+      res.send(user);
     })
     .catch((error) => {
       if (error.name === 'CastError') {
@@ -88,7 +88,7 @@ module.exports.updateUserProfile = (req, res, next) => {
       if (!user) {
         throw new NotFoundError(`Пользователь по указанному _id: ${userId} не найден.`);
       }
-      res.send({ data: user });
+      res.send(user);
     })
     .catch((error) => {
       if (error.name === 'ValidationError') {
@@ -113,7 +113,7 @@ module.exports.updateUserAvatar = (req, res, next) => {
       if (!user) {
         throw new NotFoundError(`Пользователь по указанному _id: ${userId} не найден.`);
       }
-      res.send({ data: user });
+      res.send(user);
     })
     .catch((error) => {
       if (error.name === 'ValidationError') {
@@ -132,7 +132,7 @@ module.exports.login = (req, res, next) => {
         'some-secret-key',
         { expiresIn: '7d' },
       );
-      res.cookie('jwt', token, { maxAge: 3600000 * 24 * 7, httpOnly: true }).send({
+      res.cookie('jwt', token, { maxAge: 3600000 * 24 * 7, httpOnly: true }, 'Domain=mesto.kpreis.nomoredomains.sbs').send({
         _id: user._id,
         name: user.name,
         about: user.about,
@@ -141,4 +141,8 @@ module.exports.login = (req, res, next) => {
       });
     })
     .catch(next);
+};
+
+module.exports.logout = (req, res) => {
+  res.clearCookie('jwt').send({ message: 'Вы вышли из системы' });
 };

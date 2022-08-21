@@ -10,22 +10,21 @@ import Login from './Login';
 import Register from './Register';
 import InfoTooltip from './InfoTooltip';
 import { api } from '../utils/api.js';
-import { register, authorization, validateToken } from '../utils/auth.js';
+import { register, authorization, validateToken, logout } from '../utils/auth.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { React, useState, useEffect } from 'react';
 import { Switch, Route, useHistory, Redirect } from 'react-router-dom';
 
 function App() {
   const [cards, setData] = useState([]);
-  const [currentUser, setDataProfile] = useState({ name: '', about: '' });
+  const [currentUser, setDataProfile] = useState({ name: '', about: '', email: '' });
   const [card, setCard] = useState(null);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [statusRegister, setStatusRegister] = useState(false);
-  const [emailUserInHeader, setEmailUserInHeader] = useState('');
 
   useEffect(() => {
     checkToken();
@@ -37,7 +36,7 @@ function App() {
         setData(initialCards);
         setDataProfile(dataProfile);
       })
-      .catch((error) => {
+      .catch((error) => {      
         console.log(error);
       });
   }, []);
@@ -66,7 +65,7 @@ function App() {
   };
 
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
 
     api
       .changeLikeCardStatus(card._id, !isLiked)
@@ -147,9 +146,17 @@ function App() {
     authorization(email, password)
       .then((result) => {
         if (result) {
+          Promise.all([api.getInitialCards(), api.getProfile()])
+      .then(([initialCards, dataProfile]) => {
+        setData(initialCards);
+        setDataProfile(dataProfile);
+      })
+      .catch((error) => {
+        
+        console.log(error);
+      });
           setLoggedIn(true);
           history.push('/');
-          localStorage.setItem('jwt', result.token);
         }
       })
       .catch((error) => {
@@ -158,24 +165,22 @@ function App() {
   };
 
   const checkToken = () => {
-    const token = localStorage.getItem('jwt');
-    if (token) {
-      validateToken(token)
-        .then((result) => {
-          if (result) {
-            setEmailUserInHeader(result.data.email);
-          }
+
+      validateToken()
+        .then(() => {
           setLoggedIn(true);
           history.push('/');
         })
         .catch((error) => {
+          if (error === 'Ошибка: 401') {
+            history.push('/sign-in');
+          }
           console.log(error);
-        });
-    }
+        });   
   };
 
   const onSignOut = () => {
-    localStorage.removeItem('jwt');
+    logout();
     history.push('/sign-in');
     setLoggedIn(false);
   };
@@ -184,7 +189,7 @@ function App() {
     <div className="App">
       <CurrentUserContext.Provider value={currentUser}>
         <div className="page">
-          <Header emailUserInHeader={emailUserInHeader} onSignOut={onSignOut} />
+          <Header emailUserInHeader={currentUser.email} onSignOut={onSignOut} />
           <Switch>
             <ProtectedRoute
               exact
