@@ -17,6 +17,7 @@ class Api {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'GET',
       headers: this._headers,
+      credentials: 'include',
     }).then(this._checkResponse);
   }
 
@@ -28,6 +29,7 @@ class Api {
         name: `${card['name']}`,
         link: `${card['link']}`,
       }),
+      credentials: 'include',
     }).then(this._checkResponse);
   }
 
@@ -35,6 +37,7 @@ class Api {
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: 'DELETE',
       headers: this._headers,
+      credentials: 'include',
     }).then(this._checkResponse);
   }
 
@@ -42,6 +45,7 @@ class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
       headers: this._headers,
+      credentials: 'include',
     }).then(this._checkResponse);
   }
 
@@ -53,6 +57,7 @@ class Api {
         name: `${profile['name']}`,
         about: `${profile['about']}`,
       }),
+      credentials: 'include',
     }).then(this._checkResponse);
   }
 
@@ -63,6 +68,7 @@ class Api {
       body: JSON.stringify({
         avatar: `${avatarLink}`,
       }),
+      credentials: 'include',
     }).then(this._checkResponse);
   }
 
@@ -71,6 +77,7 @@ class Api {
       return fetch(`${this._baseUrl}/cards/${id}/likes`, {
         method: 'PUT',
         headers: this._headers,
+        credentials: 'include',
       }).then(this._checkResponse);
     } else {
       return fetch(`${this._baseUrl}/cards/${id}/likes`, {
@@ -82,9 +89,8 @@ class Api {
 }
 
 export const api = new Api({
-  baseUrl: `https:///mesto.nomoreparties.co/v1/${authConfig.cohortId}`,
+  baseUrl: `https://api.mesto.kpreis.nomoredomains.sbs`,
   headers: {
-    authorization: `${authConfig.token}`,
     'Content-Type': 'application/json',
   },
 });

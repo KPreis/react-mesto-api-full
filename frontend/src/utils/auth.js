@@ -1,4 +1,4 @@
-const baseUrl = 'https://auth.nomoreparties.co';
+const baseUrl = 'https://api.mesto.kpreis.nomoredomains.sbs';
 
 const checkResponse = (res) => {
   if (res.ok) {
@@ -15,6 +15,7 @@ export const register = (email, password) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email: email, password: password }),
+    credentials: 'include',
   }).then((response) => {
     return checkResponse(response);
   });
@@ -28,6 +29,7 @@ export const authorization = (email, password) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email: email, password: password }),
+    credentials: 'include',
   }).then((response) => {
     return checkResponse(response);
   });
@@ -40,6 +42,7 @@ export const validateToken = (token) => {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
+    credentials: 'include',
   }).then((response) => {
     return checkResponse(response);
   });

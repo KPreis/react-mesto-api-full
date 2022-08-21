@@ -3,16 +3,20 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors, celebrate, Joi } = require('celebrate');
+const cors = require('cors');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { regExp } = require('./consts/consts');
 const { requestLogger, errorLogger } = require('./middlewares/logger'); 
 
-const allowedCors = [
-  'http://mesto.kpreis.nomoredomains.sbs/',
-  'https://mesto.kpreis.nomoredomains.sbs/',
-  'localhost:3000'
-];
+const corsOptions = {
+  origin: [
+    'http://mesto.kpreis.nomoredomains.sbs/',
+    'https://mesto.kpreis.nomoredomains.sbs/',
+    'localhost:3000'
+  ]
+}
+
 
 const { PORT = 3000 } = process.env;
 
@@ -26,24 +30,7 @@ app.use(cookieParser());
 
 app.use(requestLogger);
 
-app.use(function(req, res, next) {
-  const { origin } = req.headers; 
-  const { method } = req;
-  const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
-  const requestHeaders = req.headers['access-control-request-headers'];
-
-  if (method === 'OPTIONS') { 
-    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    res.header('Access-Control-Allow-Headers', requestHeaders);
-    return res.end();
-  } 
-
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-  }
-
-  next();
-}); 
+app.use(cors(corsOptions)); 
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
