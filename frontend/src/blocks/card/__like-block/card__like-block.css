@@ -1,0 +1,8 @@
+.card__like-block {
+  display: flex;
+  flex-direction: column;
+  min-width: 22px;
+  min-height: 35px;
+  margin: 0 0 0 30px;
+  padding: 0;
+}

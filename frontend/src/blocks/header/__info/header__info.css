@@ -1,0 +1,7 @@
+.header__info {
+  display: flex;
+  color: white;
+  max-height: 25px;
+  margin-top: 30px;
+  font-size: 18px;
+}

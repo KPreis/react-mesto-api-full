@@ -1,0 +1,15 @@
+.card__like {
+  background-color: #fff;
+  background-image: url(../../../images/like-icon.svg);
+  border: none;
+  min-width: 22px;
+  height: 19px;
+
+  justify-self: flex-end;
+  transition: opacity 0.3s ease;
+}
+
+.card__like:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}

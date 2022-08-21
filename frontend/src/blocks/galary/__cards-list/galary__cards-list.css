@@ -1,0 +1,26 @@
+.galary__cards-list {
+  margin: 0;
+  padding: 47px 0 0;
+  width: 100%;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px 17px;
+  font-size: 0;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 900px) {
+  .galary__cards-list {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 47px 10px 0;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .galary__cards-list {
+    padding: 36px 10px 0;
+    grid-template-columns: 1fr;
+    min-width: 320px;
+  }
+}

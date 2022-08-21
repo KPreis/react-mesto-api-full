@@ -1,0 +1,10 @@
+.galary {
+  width: 880px;
+  margin: 3px auto 0;
+}
+
+@media screen and (max-width: 900px) {
+  .galary {
+    width: 100%;
+  }
+}
