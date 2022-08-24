@@ -147,13 +147,13 @@ function App() {
       .then((result) => {
         if (result) {
           Promise.all([api.getInitialCards(), api.getProfile()])
-      .then(([initialCards, dataProfile]) => {
-        setData(initialCards);
-        setDataProfile(dataProfile);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+          .then(([initialCards, dataProfile]) => {
+            setData(initialCards);
+            setDataProfile(dataProfile);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
           setLoggedIn(true);
           history.push('/');
         }
