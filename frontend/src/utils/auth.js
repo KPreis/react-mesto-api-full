@@ -16,7 +16,6 @@ export const register = (email, password) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email: email, password: password }),
-    credentials: 'include',
   }).then((response) => {
     return checkResponse(response);
   });
@@ -31,7 +30,6 @@ export const authorization = (email, password) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email: email, password: password }),
-    credentials: 'include',
   }).then((response) => {
     return checkResponse(response);
   });
@@ -58,7 +56,6 @@ export const validateToken = () => {
     headers: {
       'Content-Type': 'application/json',
     },
-    credentials: 'include',
   }).then((response) => {
     return checkResponse(response);
   });
