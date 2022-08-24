@@ -152,7 +152,6 @@ function App() {
         setDataProfile(dataProfile);
       })
       .catch((error) => {
-        
         console.log(error);
       });
           setLoggedIn(true);
@@ -165,7 +164,6 @@ function App() {
   };
 
   const checkToken = () => {
-
       validateToken()
         .then(() => {
           setLoggedIn(true);
