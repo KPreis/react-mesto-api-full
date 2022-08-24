@@ -1,5 +1,5 @@
 {
-  "name": "express-mesto-gha",
+  "name": "backend",
   "version": "1.0.0",
   "description": "# Проект Mesto фронтенд + бэкенд",
   "main": "app.js",
@@ -10,15 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KPreis/express-mesto-gha.git"
+    "url": "git+https://github.com/KPreis/react-mesto-api-full.git"
   },
   "keywords": [],
   "author": "Konstantin Preis",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/KPreis/express-mesto-gha/issues"
+    "url": "https://github.com/KPreis/react-mesto-api-full/issues"
   },
-  "homepage": "https://github.com/KPreis/express-mesto-gha#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",

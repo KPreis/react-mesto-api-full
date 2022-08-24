@@ -13,7 +13,7 @@ module.exports.createCard = (req, res, next) => {
     name, link, owner,
   })
     .then((card) => {
-      res.send({ data: card });
+      res.send(card);
     })
     .catch((error) => {
       if (error.name === 'ValidationError') {
@@ -26,7 +26,7 @@ module.exports.createCard = (req, res, next) => {
 module.exports.getCards = (req, res, next) => {
   Card.find({})
     .then((cards) => {
-      res.send({ data: cards });
+      res.send(cards);
     })
     .catch(next);
 };
@@ -42,7 +42,7 @@ module.exports.deleteCardById = (req, res, next) => {
       } else {
         Card.findByIdAndRemove(String(req.params.cardId))
           .then((result) => {
-            res.send({ data: result });
+            res.send(result);
           })
           .catch((error) => {
             if (error.name === 'CastError') {
@@ -65,7 +65,7 @@ module.exports.likeCard = (req, res, next) => {
       if (!card) {
         throw new NotFoundError(`Передан несуществующий _id ${req.params.cardId} карточки`);
       }
-      res.send({ data: card });
+      res.send(card);
     })
     .catch((error) => {
       if (error.name === 'CastError') {
@@ -85,7 +85,7 @@ module.exports.dislikeCard = (req, res, next) => {
       if (!card) {
         throw new NotFoundError(`Передан несуществующий _id ${req.params.cardId} карточки`);
       }
-      res.send({ data: card });
+      res.send(card);
     })
     .catch((error) => {
       if (error.name === 'CastError') {

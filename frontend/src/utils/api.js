@@ -1,5 +1,3 @@
-import { authConfig } from './consts.js';
-
 class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
@@ -83,6 +81,7 @@ class Api {
       return fetch(`${this._baseUrl}/cards/${id}/likes`, {
         method: 'DELETE',
         headers: this._headers,
+        credentials: 'include' 
       }).then(this._checkResponse);
     }
   }
