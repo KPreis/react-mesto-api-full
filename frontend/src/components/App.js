@@ -23,7 +23,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [statusRegister, setStatusRegister] = useState(false);
 
   useEffect(() => {
@@ -154,6 +154,7 @@ function App() {
       .catch((error) => {
         console.log(error);
       });
+          setStatusRegister(false);
           setLoggedIn(true);
           history.push('/');
         }
