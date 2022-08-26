@@ -16,4 +16,4 @@
 
 Проект располагается по адресу https://mesto.kpreis.nomoredomains.sbs
 Публичный IP адрес: 62.84.115.140
-Домен: mesto.kpreis.nomoredomains.sbs
+Домен сервера: https://api.mesto.kpreis.nomoredomains.sbs
