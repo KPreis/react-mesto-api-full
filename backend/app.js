@@ -7,7 +7,7 @@ const cors = require('cors');
 const { createUser, login, logout } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { regExp } = require('./consts/consts');
-const { requestLogger, errorLogger } = require('./middlewares/logger'); 
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const corsOptions = {
   origin: [
@@ -17,7 +17,6 @@ const corsOptions = {
   ],
   credentials: true,
 };
-
 
 const { PORT = 3000 } = process.env;
 
@@ -31,7 +30,7 @@ app.use(cookieParser());
 
 app.use(requestLogger);
 
-app.use(cors(corsOptions)); 
+app.use(cors(corsOptions));
 
 app.get('/crash-test', () => {
   setTimeout(() => {
@@ -42,14 +41,14 @@ app.get('/crash-test', () => {
 app.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(8),
+    password: Joi.string().required(),
   }),
 }), login);
 
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(8),
+    password: Joi.string().required(),
     avatar: Joi.string().regex(regExp),
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),

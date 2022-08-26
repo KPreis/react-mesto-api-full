@@ -23,7 +23,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [statusRegister, setStatusRegister] = useState(false);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ function App() {
         setData(initialCards);
         setDataProfile(dataProfile);
       })
-      .catch((error) => {      
+      .catch((error) => {
         console.log(error);
       });
   }, []);
@@ -159,6 +159,7 @@ function App() {
         }
       })
       .catch((error) => {
+        setIsInfoTooltipOpen(true);
         console.log(error);
       });
   };
@@ -174,7 +175,7 @@ function App() {
             history.push('/sign-in');
           }
           console.log(error);
-        });   
+        });
   };
 
   const onSignOut = () => {
