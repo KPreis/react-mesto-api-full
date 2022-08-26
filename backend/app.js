@@ -4,32 +4,19 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors, celebrate, Joi } = require('celebrate');
 const cors = require('cors');
-<<<<<<< HEAD
 const { createUser, login, logout } = require('./controllers/users');
-=======
-const { createUser, login } = require('./controllers/users');
->>>>>>> 8849887 (feat: change FE and BE for CORS)
 const auth = require('./middlewares/auth');
 const { regExp } = require('./consts/consts');
-const { requestLogger, errorLogger } = require('./middlewares/logger'); 
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const corsOptions = {
   origin: [
-<<<<<<< HEAD
     'http://mesto.kpreis.nomoredomains.sbs',
     'https://mesto.kpreis.nomoredomains.sbs',
     'http://localhost:3000',
   ],
   credentials: true,
 };
-=======
-    'http://mesto.kpreis.nomoredomains.sbs/',
-    'https://mesto.kpreis.nomoredomains.sbs/',
-    'localhost:3000'
-  ]
-}
->>>>>>> 8849887 (feat: change FE and BE for CORS)
-
 
 const { PORT = 3000 } = process.env;
 
@@ -43,28 +30,25 @@ app.use(cookieParser());
 
 app.use(requestLogger);
 
-app.use(cors(corsOptions)); 
-<<<<<<< HEAD
+app.use(cors(corsOptions));
 
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
-=======
->>>>>>> 8849887 (feat: change FE and BE for CORS)
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(8),
+    password: Joi.string().required(),
   }),
 }), login);
 
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(8),
+    password: Joi.string().required(),
     avatar: Joi.string().regex(regExp),
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
